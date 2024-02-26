@@ -1,0 +1,44 @@
+import SwiftUI
+
+enum Emoji: String, CaseIterable {
+    case 🍟, 🍔, 🍕, 🌽
+}
+
+struct ContentView: View {
+    @State var selection: Emoji = .🌽
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text(selection.rawValue)
+                    .font(.system(size: 150))
+                
+                Picker("Pick an Emoji", selection: $selection) {
+                    ForEach(Emoji.allCases, id: \.self) { emoji in
+                        Text(emoji.rawValue)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            .navigationBarTitle("Francis Food Picker", displayMode: .large)
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarItems(trailing:
+                Button(action: {
+                    // Add action if needed
+                }) {
+                    Image(systemName: "gear")
+                        .font(.title)
+                        .foregroundColor(.blue)
+                }
+            )
+            .padding()
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
